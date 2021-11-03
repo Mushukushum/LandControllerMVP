@@ -12,7 +12,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.thirdparties.R
 import com.example.thirdparties.model.SoilCondition
 import com.example.thirdparties.viewmodel.SoilConditionViewModel
-import com.google.firebase.crashlytics.internal.model.CrashlyticsReport
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
 
@@ -91,8 +90,11 @@ class UpdateFragment : Fragment() {
         builder.setNegativeButton("No"){_,_ ->
 
         }
+
         builder.setTitle("Delete ${args.currentSoilCondition.lastAgriculture}?")
         builder.setMessage("Are you sure you want to delete ${args.currentSoilCondition.lastAgriculture}")
+
         builder.create().show()
     }
 }
+

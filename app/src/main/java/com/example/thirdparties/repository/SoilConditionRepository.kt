@@ -8,19 +8,19 @@ class SoilConditionRepository(private val databaseDao: DatabaseDao)  {
 
     val readAllData: LiveData<List<SoilCondition>> = databaseDao.getAllInfo()
 
-    suspend fun addInfo(soilCondition: SoilCondition){
+    fun addInfo(soilCondition: SoilCondition){
         databaseDao.insert(soilCondition)
     }
 
-    suspend fun updateInfo(soilCondition: SoilCondition){
+    fun updateInfo(soilCondition: SoilCondition){
         databaseDao.update(soilCondition)
     }
 
-    suspend fun deleteInfo(soilCondition: SoilCondition){
+    fun deleteInfo(soilCondition: SoilCondition){
         databaseDao.delete(soilCondition)
     }
 
-    suspend fun deleteAll(){
+    fun deleteAll(){
         databaseDao.deleteAll()
     }
 }

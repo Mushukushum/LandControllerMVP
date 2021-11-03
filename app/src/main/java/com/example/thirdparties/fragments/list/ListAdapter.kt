@@ -14,9 +14,7 @@ class ListAdapter:RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     private var soilConditionList = emptyList<SoilCondition>()
 
-    class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-
-    }
+    class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recycler_view, parent, false))
