@@ -1,6 +1,5 @@
 package com.example.thirdparties.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.thirdparties.model.SoilCondition
 
@@ -23,5 +22,5 @@ interface DatabaseDao {
     fun delete(dataObject: SoilCondition)
 
     @Query("SELECT * FROM soil_condition ORDER BY id ASC")
-    fun getAllInfo(): LiveData<List<SoilCondition>>
+    fun getAllInfo(): List<SoilCondition>
 }

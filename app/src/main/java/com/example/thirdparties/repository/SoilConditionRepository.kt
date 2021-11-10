@@ -1,26 +1,28 @@
 package com.example.thirdparties.repository
 
-import androidx.lifecycle.LiveData
+import com.example.thirdparties.MainContract
 import com.example.thirdparties.database.DatabaseDao
 import com.example.thirdparties.model.SoilCondition
 
-class SoilConditionRepository(private val databaseDao: DatabaseDao)  {
+class SoilConditionRepository(private val databaseDao: DatabaseDao): MainContract.SoilConditionRepository  {
 
-    val readAllData: LiveData<List<SoilCondition>> = databaseDao.getAllInfo()
-
-    fun addInfo(soilCondition: SoilCondition){
+    override fun addInfo(soilCondition: SoilCondition){
         databaseDao.insert(soilCondition)
     }
 
-    fun updateInfo(soilCondition: SoilCondition){
+    override fun updateInfo(soilCondition: SoilCondition){
         databaseDao.update(soilCondition)
     }
 
-    fun deleteInfo(soilCondition: SoilCondition){
+    override fun deleteInfo(soilCondition: SoilCondition){
         databaseDao.delete(soilCondition)
     }
 
-    fun deleteAll(){
+    override fun deleteAll(){
         databaseDao.deleteAll()
+    }
+
+    override fun getAllInfo(): List<SoilCondition> {
+        return databaseDao.getAllInfo()
     }
 }

@@ -6,20 +6,19 @@ import android.text.TextUtils
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.thirdparties.MainContract
+import com.example.thirdparties.presenter.Presenter
 import com.example.thirdparties.R
 import com.example.thirdparties.model.SoilCondition
-import com.example.thirdparties.viewmodel.SoilConditionViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
 
-class UpdateFragment : Fragment() {
+class UpdateFragment : Fragment(), MainContract.View {
 
     private val args by navArgs<UpdateFragmentArgs>()
-
-    private lateinit var soilConditionViewModel: SoilConditionViewModel
+    private lateinit var presenter: Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +26,7 @@ class UpdateFragment : Fragment() {
     ): View? {
 
         val view =  inflater.inflate(R.layout.fragment_update, container, false)
-
-        soilConditionViewModel = ViewModelProvider(this).get(SoilConditionViewModel::class.java)
+        presenter = Presenter(this,requireActivity().application)
 
         view.update_area_size_field.setText(args.currentSoilCondition.area.toString())
         view.update_last_agriculture_field.setText(args.currentSoilCondition.lastAgriculture)
@@ -51,7 +49,7 @@ class UpdateFragment : Fragment() {
         if(inputCheck(area.toString(), lastAgriculture.toString(), cropCapacity.toString())){
             val updatedInfo = SoilCondition(args.currentSoilCondition.id, area, lastAgriculture.toString(), cropCapacity)
 
-            soilConditionViewModel.updateInfo(updatedInfo)
+            presenter.updateInfo(updatedInfo)
 
             Toast.makeText(requireContext(), "Updated successfully!", Toast.LENGTH_LONG).show()
 
@@ -82,7 +80,7 @@ class UpdateFragment : Fragment() {
     private fun deleteInfo() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes"){_,_ ->
-            soilConditionViewModel.removeInfo(args.currentSoilCondition)
+            presenter.deleteInfo(args.currentSoilCondition)
             Toast.makeText(requireContext(), "Successfully removed: ${args.currentSoilCondition.lastAgriculture}", Toast.LENGTH_LONG).show()
             val action = UpdateFragmentDirections.actionUpdateFragmentToListFragment()
             findNavController().navigate(action)
@@ -95,6 +93,10 @@ class UpdateFragment : Fragment() {
         builder.setMessage("Are you sure you want to delete ${args.currentSoilCondition.lastAgriculture}")
 
         builder.create().show()
+    }
+
+    override fun showInfo(info: List<SoilCondition>) {
+
     }
 }
 
